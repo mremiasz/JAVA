@@ -1,6 +1,6 @@
 //Napisz program, który porównywałby dwa pliki leksykograficznie,
 //zobacz https://en.wikipedia.org/wiki/Lexicographical_order.
-
+//wersja bez podziału na metody i klasy
 import java.io.*;
 import java.text.Collator;
 import java.util.*;
