@@ -5,7 +5,7 @@ import java.io.*;
 import java.text.Collator;
 import java.util.*;
 
-public class zadanie {
+public class zadanieNaZaliczenie {
 
     public static void main(String[] args) {
 
