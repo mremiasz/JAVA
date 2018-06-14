@@ -1,22 +1,49 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Zadanie02_liczZnakiSlowa {
-    public static void main(String[] args) throws IOException {
-        int lines = 0;
-        int whiteSpaces = 0;
-        String line;
+    public static void main(String[] args) throws IOException{
+
+        long lines = 0;
+        long marks = 0;
+        long delimeters = 0;
+        long words = 0;
+        long whitespaces = 0;
+
+        String pattern1 = "[\\r\\s\\n\\t]";
+        String pattern2 = "[\\\\s\\\\r\\\\n\\\\t]";
+
+        List<String> myList;
 
         try (
-        DataInputStream input = new DataInputStream(new FileInputStream("test.txt"));
+                DataInputStream inputFile = new DataInputStream(new FileInputStream("test.txt"));
+                BufferedReader inputBr = new BufferedReader(new InputStreamReader(inputFile));
         ) {
-            while (input.readUTF() != null) {
-                line = input.readUTF();
+
+            for (String line = inputBr.readLine(); line != null; line = inputBr.readLine()) {
                 lines++;
-                whiteSpaces += line.length() - line.replaceAll(" ", "").length();
+                whitespaces += (line.length() -  line.replaceAll(pattern1, "").length());
+                delimeters  += (line.length() -  line.replaceAll(pattern2, "").length())/2;
+
+                marks += line.length();
+                myList = new ArrayList<String>(Arrays.asList(line.replaceAll(pattern2, "").split(pattern1)));
+                myList.removeAll(Arrays.asList("", null));
+                words += myList.size();
             }
-        } catch (EOFException ex) {
-            System.out.println("Odczytano cały plik.");
         }
-        System.out.println("Linie: "+lines +"\nSpacje: "+whiteSpaces);
+        //druga metoda liczenia lini w pliku
+        Path path = Paths.get("test.txt");
+        long lineCount = Files.lines(path).count();
+
+        System.out.println("Linie: "+ lines +" "+ lineCount+
+                            "\nZnaki (z białymi włącznie): "+ marks +
+                            "\nSlowa: "+ words +
+                            "\nBiałe znaki: "+ whitespaces +
+                            "\nSymbole (\\r, \\t, \\n, \\s): " + delimeters);
     }
 }
