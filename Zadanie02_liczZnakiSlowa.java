@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Zadanie02_liczZnakiSlowa {
     public static void main(String[] args) throws IOException{
-
+        String summary[][] = new String[4][2];
         long lines = 0;
         long marks = 0;
         long delimeters = 0;
@@ -40,7 +40,17 @@ public class Zadanie02_liczZnakiSlowa {
         Path path = Paths.get("test.txt");
         long lineCount = Files.lines(path).count();
 
-        System.out.println("Linie: "+ lines +" "+ lineCount+
+        summary[0][0] = "Linie";
+        summary[1][0] = "Znaki";
+        summary[2][0] = "Białe znaki";
+        summary[3][0] = "Słowa";
+
+        summary[0][1] = String.valueOf(lines);
+        summary[1][1] = String.valueOf(marks);
+        summary[2][1] = String.valueOf(whitespaces);
+        summary[3][1] = String.valueOf(words);
+
+        System.ou[t.println("Linie: "+ lines +" "+ lineCount+
                             "\nZnaki (z białymi włącznie): "+ marks +
                             "\nSlowa: "+ words +
                             "\nBiałe znaki: "+ whitespaces +
