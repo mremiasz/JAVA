@@ -1,0 +1,3 @@
+Napisz kalkulator operujący na liczbach zmiennoprzecinkowych, który będzie pobierał dane od użytkownika i będzie pozwalał obliczyć wyniki dodawania, odejmowania, mnożenia i dzielenia. Program powinien być odporny na błędnie wprowadzane dane i prosić użytkownika o korektę. Zwróć także uwagę na fakt, że w przypadku dzielenia przez 0 zostanie wygenerowany wyjątek ArithmeticException, który również należy obsłużyć i wyświetlić odpowiedni komunikat użytkownikowi.
+
+Zdefiniuj również klasę wyjątku UnkownOperatorException, który będzie generowany w przypadku, gdy użytkownik wprowadzi operator arytmetyczny inny niż +, -, * lub /.
