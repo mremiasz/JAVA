@@ -1,39 +1,43 @@
 package data;
 
-public class Magazine extends Publication {
-    private int month;
-    private int day;
-    private String language;
+public class Book extends Publication {
+    // Pola
+    private String author;
+    private int pages;
+    private String isbn;
 
-    public int getMonth() {
-        return month;
+    // settery i gettery
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public int getDay() {
-        return day;
+    public int getPages() {
+        return pages;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public Magazine(String title, String publisher, String language, int year, int month, int day) {
+    // Konstruktory
+    public Book(String title, String author, int year, int pages, String publisher,
+                String isbn) {
         super(year, title, publisher);
-        setLanguage(language);
-        setMonth(month);
-        setDay(day);
+        this.setAuthor(author);
+        this.setPages(pages);
+        this.setIsbn(isbn);
     }
 
     @Override
@@ -41,16 +45,15 @@ public class Magazine extends Publication {
         StringBuilder printer = new StringBuilder(32);
         printer.append(getTitle());
         printer.append("; ");
-        printer.append(getPublisher());
+        printer.append(getAuthor());
         printer.append("; ");
         printer.append(getYear());
         printer.append("; ");
-        printer.append(getMonth());
+        printer.append(getPages());
         printer.append("; ");
-        printer.append(getDay());
+        printer.append(getPublisher());
         printer.append("; ");
-        printer.append(getLanguage());
-
+        printer.append(getIsbn());
         return printer.toString();
     }
 
@@ -58,9 +61,9 @@ public class Magazine extends Publication {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + day;
-        result = prime * result + ((language == null) ? 0 : language.hashCode());
-        result = prime * result + month;
+        result = prime * result + ((author == null) ? 0 : author.hashCode());
+        result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
+        result = prime * result + pages;
         return result;
     }
 
@@ -72,15 +75,18 @@ public class Magazine extends Publication {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Magazine other = (Magazine) obj;
-        if (day != other.day)
-            return false;
-        if (language == null) {
-            if (other.language != null)
+        Book other = (Book) obj;
+        if (author == null) {
+            if (other.author != null)
                 return false;
-        } else if (!language.equals(other.language))
+        } else if (!author.equals(other.author))
             return false;
-        if (month != other.month)
+        if (isbn == null) {
+            if (other.isbn != null)
+                return false;
+        } else if (!isbn.equals(other.isbn))
+            return false;
+        if (pages != other.pages)
             return false;
         return true;
     }
