@@ -38,8 +38,20 @@ public class Magazine extends Publication {
 
     @Override
     public String toString() {
-        return getTitle() + "; " + "; " + getPublisher() + "; " + getYear() + "-"
-                + getMonth() + "-" + getDay() + "; " + getLanguage();
+        StringBuilder printer = new StringBuilder(32);
+        printer.append(getTitle());
+        printer.append("; ");
+        printer.append(getPublisher());
+        printer.append("; ");
+        printer.append(getYear());
+        printer.append("; ");
+        printer.append(getMonth());
+        printer.append("; ");
+        printer.append(getDay());
+        printer.append("; ");
+        printer.append(getLanguage());
+
+        return printer.toString();
     }
 
     @Override
