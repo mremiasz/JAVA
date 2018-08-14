@@ -45,9 +45,9 @@ public class Magazine extends Publication {
         printer.append(getPublisher());
         printer.append("; ");
         printer.append(getYear());
-        printer.append("- ");
+        printer.append("-");
         printer.append(getMonth());
-        printer.append("- ");
+        printer.append("-");
         printer.append(getDay());
         printer.append("; ");
         printer.append(getLanguage());
