@@ -1,24 +1,34 @@
 package app;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+
 import utils.DataReader;
+import utils.FileManager;
+import utils.LibraryUtils;
 import data.Book;
 import data.Library;
 import data.Magazine;
-import utils.LibraryUtils;
-
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 
 public class LibraryControl {
     // zmienna do komunikacji z użytkownikiem
     private DataReader dataReader;
+    private FileManager fileManager;
 
     // "biblioteka" przechowująca dane
     private Library library;
 
     public LibraryControl() {
         dataReader = new DataReader();
-        library = new Library();
+        fileManager = new FileManager();
+        try {
+            library = fileManager.readLibraryFromFile();
+            System.out.println("Wczytano dane biblioteki z pliku ");
+        } catch (ClassNotFoundException | IOException e) {
+            library = new Library();
+            System.out.println("Utworzono nową bazę biblioteki.");
+        }
     }
 
     /*
@@ -26,7 +36,6 @@ public class LibraryControl {
      */
     public void controlLoop() {
         Option option = null;
-
         while (option != Option.EXIT) {
             try {
                 printOptions();
@@ -45,20 +54,21 @@ public class LibraryControl {
                         printMagazines();
                         break;
                     case EXIT:
-                        ;
+                        exit();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Wprowadzono niepoprawne dane.");
+                System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
             } catch (NumberFormatException | NoSuchElementException e) {
-                System.out.println("Wybrana opcja nie isteniej.");
+                System.out.println("Wybrana opcja nie istnieje, wybierz ponownie:");
             }
         }
+        // zamykamy strumień wejścia
         dataReader.close();
     }
 
     private void printOptions() {
         System.out.println("Wybierz opcję: ");
-        for(Option o: Option.values()) {
+        for (Option o : Option.values()) {
             System.out.println(o);
         }
     }
@@ -81,6 +91,10 @@ public class LibraryControl {
         LibraryUtils.printMagazines(library);
     }
 
+    private void exit() {
+        fileManager.writeLibraryToFile(library);
+    }
+
     private enum Option {
         EXIT(0, "Wyjście z programu"),
         ADD_BOOK(1, "Dodanie książki"),
@@ -90,7 +104,6 @@ public class LibraryControl {
 
         private int value;
         private String description;
-
 
         Option(int value, String desc) {
             this.value = value;
@@ -104,12 +117,12 @@ public class LibraryControl {
 
         public static Option createFromInt(int option) throws NoSuchElementException {
             Option result = null;
-
             try {
                 result = Option.values()[option];
-            } catch (ArrayIndexOutOfBoundsException e){
-                throw new NoSuchElementException("Brak elementu o wskazanym ID.");
+            } catch(ArrayIndexOutOfBoundsException e) {
+                throw new NoSuchElementException("Brak elementu o wskazanym ID");
             }
+
             return result;
         }
     }
