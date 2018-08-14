@@ -2,6 +2,7 @@ package data;
 
 public class Book extends Publication {
     // Pola
+    private static final long serialVersionUID = 564654654654L;
     private String author;
     private int pages;
     private String isbn;
