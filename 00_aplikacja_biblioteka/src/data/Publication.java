@@ -2,35 +2,39 @@ package data;
 
 import java.io.Serializable;
 
-public class Publication implements Serializable {
+public class Publication implements Serializable, Comparable <Publication> {
     private static final long serialVersionUID = 1984321894963513156L;
     private int year;
     private String title;
     private String publisher;
 
-    public int getYear() {
+    int getYear() {
         return year;
     }
-    public void setYear(int year) {
+    private void setYear(int year) {
         this.year = year;
     }
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
-    public String getPublisher() {
+    String getPublisher() {
         return publisher;
     }
-    public void setPublisher(String publisher) {
+    private void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-    protected Publication(int year, String title, String publisher) {
+    Publication(int year, String title, String publisher) {
         setYear(year);
         setTitle(title);
         setPublisher(publisher);
+    }
+
+    public int compareTo(Publication o){
+        return title.compareTo(o.getTitle());
     }
     @Override
     public int hashCode() {
