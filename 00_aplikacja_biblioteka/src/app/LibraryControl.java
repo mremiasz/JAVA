@@ -9,6 +9,7 @@ import utils.FileManager;
 import utils.LibraryUtils;
 import data.Book;
 import data.Library;
+import data.LibraryUser;
 import data.Magazine;
 
 public class LibraryControl {
@@ -53,6 +54,12 @@ public class LibraryControl {
                     case PRINT_MAGAZINES:
                         printMagazines();
                         break;
+                    case ADD_USER:
+                        addUser();
+                        break;
+                    case PRINT_USERS:
+                        printUsers();
+                        break;
                     case EXIT:
                         exit();
                 }
@@ -91,6 +98,15 @@ public class LibraryControl {
         LibraryUtils.printMagazines(library);
     }
 
+    private void addUser(){
+        LibraryUser user = dataReader.readAndCreateLibraryUser();
+        library.addUser(user);
+    }
+
+    private void printUsers(){
+        LibraryUtils.printUsers(library);
+    }
+
     private void exit() {
         fileManager.writeLibraryToFile(library);
     }
@@ -100,7 +116,9 @@ public class LibraryControl {
         ADD_BOOK(1, "Dodanie książki"),
         ADD_MAGAZINE(2,"Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
-        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet");
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet"),
+        ADD_USER(5, "Dodanie nowego użytkownika"),
+        PRINT_USERS(6,"Wyświetlenie listy użytkowników");
 
         private int value;
         private String description;

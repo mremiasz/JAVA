@@ -3,6 +3,7 @@ package utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import data.Book;
+import data.LibraryUser;
 import data.Magazine;
 
 public class DataReader {
@@ -78,5 +79,16 @@ public class DataReader {
             throw e;
         }
         return new Magazine(title, publisher, language, year, month, day);
+    }
+
+    public LibraryUser readAndCreateLibraryUser(){
+        System.out.println("Imię: ");
+        String fn = sc.nextLine();
+        System.out.println("Nazwisko: ");
+        String ln = sc.nextLine();
+        System.out.println("Pesel: ");
+        String pesel = sc.nextLine();
+
+        return new LibraryUser(fn,ln,pesel);
     }
 }

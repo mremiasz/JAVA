@@ -3,25 +3,32 @@ package data;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Library implements Serializable {
 
     private static final long serialVersionUID = 8963852741894653156L;
 
     private static final int INITIAL_CAPACITY = 1;
-    private Publication[] publications;
-    private int publicationNumber;
+    private Map<String,Publication> publications;
+    private Map<String,LibraryUser>users;
 
     public int getPublicationNumber() {
-        return publicationNumber;
+        return publications.size();
     }
 
-    public Publication[] getPublications() {
+    public Map<String, Publication> getPublications() {
         return publications;
     }
 
+    public Map<String, LibraryUser> getUsers() {
+        return users;
+    }
+
     public Library() {
-        publications = new Publication[INITIAL_CAPACITY];
+        publications = new HashMap<>();
+        users = new HashMap<>();
     }
 
     public void addBook(Book book) {
@@ -32,40 +39,24 @@ public class Library implements Serializable {
         addPublication(magazine);
     }
 
-    private void addPublication(Publication pub) throws ArrayIndexOutOfBoundsException {
-        if (publicationNumber == publications.length){
-            publications = Arrays.copyOf(publications,publications.length*2);
-        }
-        publications[publicationNumber]=pub;
-        publicationNumber++;
+    private void addPublication(Publication pub) {
+        publications.put(pub.getTitle(),pub);
+    }
+
+    public void addUser(LibraryUser user){
+        users.put(user.getPesel(),user);
     }
 
     private void removePublication(Publication pub){
-        if (pub == null)
-            return;;
-
-        final int NOT_FOUND = -1;
-        int found = NOT_FOUND;
-        int i =0;
-
-        while (i<publications.length && found==NOT_FOUND){
-            if (pub.equals(publications[i])){
-                found = i;
-            } else {
-                i++;
-            }
-        }
-
-        if (found != NOT_FOUND){
-            System.arraycopy(publications,found +1,publications,found,publications.length-found-1);
-            publicationNumber--;
+        if (publications.containsValue(pub)){
+            publications.remove(pub.getTitle());
         }
     }
     @Override
     public String toString() {
         StringBuilder printer = new StringBuilder();
-        for (int i = 0; i < publicationNumber; i++){
-            printer.append(publications[i]);
+        for(Publication p: publications.values()) {
+            printer.append(p);
             printer.append("\n");
         }
 

@@ -1,48 +1,45 @@
 package utils;
 
-import data.Book;
-import data.Library;
-import data.Magazine;
-import data.Publication;
+import data.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 public class LibraryUtils {
     public static void printBooks(Library lib) {
-        Publication[] publications = lib.getPublications();
-        Arrays.sort(publications,new Library.AlphabeticComparator());
-
-        int publicationNumber = lib.getPublicationNumber();
+        Collection<Publication> publications = lib.getPublications().values();
         int countBooks = 0;
-
-        for (int i = 0; i<publicationNumber; i++){
-            if (publications[i] instanceof Book){
-                System.out.println(publications[i]);
+        for(Publication p: publications) {
+            if(p instanceof Book) {
+                System.out.println(p);
                 countBooks++;
             }
         }
 
-        if(countBooks==0){
-            System.out.println("Brak książek w bibliotece.");
+        if(countBooks == 0) {
+            System.out.println("Brak książek w bibliotece");
         }
     }
 
     public static void printMagazines(Library lib) {
-        Publication[] publications = lib.getPublications();
-        Arrays.sort(publications,new Library.DateComparator());
-
-        int publicationsNumber = lib.getPublicationNumber();
-        int countMahazines = 0;
-
-        for (int i =0; i< publicationsNumber;i++){
-            if(publications[i] instanceof Magazine){
-                System.out.println(publications[i]);
-                countMahazines++;
+        Collection<Publication> publications = lib.getPublications().values();
+        int countMagazines = 0;
+        for(Publication p: publications) {
+            if(p instanceof Magazine) {
+                System.out.println(p);
+                countMagazines++;
             }
         }
 
-        if(countMahazines==0){
-            System.out.println("Brak magazynów w bibliotece.");
+        if(countMagazines == 0) {
+            System.out.println("Brak magazynów w bibliotece");
         }
+    }
+
+    public static void printUsers(Library lib){
+        Collection<LibraryUser> users = lib.getUsers().values();
+
+        for (LibraryUser u: users)
+            System.out.println(u);
     }
 }
