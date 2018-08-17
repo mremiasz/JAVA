@@ -1,0 +1,1 @@
+Napisz program, w którym utworzysz tablicę 20 dowolnych liczb całkowitych, a następnie posortujesz tablicę w porządku rosnącym i malejącym, za każdym razem wyświetlając wynik posortowania na ekranie. Wykorzystaj interfejs Comparator i anonimowe klasy wewnętrzne.
