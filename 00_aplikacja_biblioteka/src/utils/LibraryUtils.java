@@ -2,15 +2,19 @@ package utils;
 
 import data.*;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 public class LibraryUtils {
     public static void printBooks(Library lib) {
-        Collection<Publication> publications = lib.getPublications().values();
+        List<Publication> publications = new ArrayList<>();
+        publications.addAll(lib.getPublications().values());
+
+        Collections.sort(publications,new Library.AlphabeticComparator());
+
         int countBooks = 0;
-        for(Publication p: publications) {
-            if(p instanceof Book) {
+
+        for (Publication p: publications){
+            if (p instanceof Book){
                 System.out.println(p);
                 countBooks++;
             }
@@ -22,7 +26,11 @@ public class LibraryUtils {
     }
 
     public static void printMagazines(Library lib) {
-        Collection<Publication> publications = lib.getPublications().values();
+        List<Publication> publications = new ArrayList<>();
+        publications.addAll(lib.getPublications().values());
+
+        Collections.sort(publications,new Library.AlphabeticComparator());
+
         int countMagazines = 0;
         for(Publication p: publications) {
             if(p instanceof Magazine) {
@@ -37,7 +45,10 @@ public class LibraryUtils {
     }
 
     public static void printUsers(Library lib){
-        Collection<LibraryUser> users = lib.getUsers().values();
+        List<LibraryUser>users = new ArrayList<>();
+        users.addAll(lib.getUsers().values());
+
+        Collections.sort(users, Comparator.comparing(User::getLastName));
 
         for (LibraryUser u: users)
             System.out.println(u);
