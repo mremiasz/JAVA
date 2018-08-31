@@ -1,0 +1,1 @@
+Stwórz listę 5 imion w losowej kolejności. Korzystając z metody Collections.sort() oraz referencji do metody String.compareToIgnoreCase() posortuj ją w porządku rosnącym, a następnie wyświetl wynik na ekranie.
