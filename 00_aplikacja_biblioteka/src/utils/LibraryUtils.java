@@ -6,51 +6,28 @@ import java.util.*;
 
 public class LibraryUtils {
     public static void printBooks(Library lib) {
-        List<Publication> publications = new ArrayList<>();
-        publications.addAll(lib.getPublications().values());
-
-        Collections.sort(publications,new Library.AlphabeticComparator());
-
-        int countBooks = 0;
-
-        for (Publication p: publications){
-            if (p instanceof Book){
-                System.out.println(p);
-                countBooks++;
-            }
-        }
-
-        if(countBooks == 0) {
-            System.out.println("Brak książek w bibliotece");
-        }
+        printPublications(lib,Book.class);
     }
 
     public static void printMagazines(Library lib) {
-        List<Publication> publications = new ArrayList<>();
-        publications.addAll(lib.getPublications().values());
+        printPublications(lib,Magazine.class);
+    }
 
-        Collections.sort(publications,new Library.AlphabeticComparator());
+    private static void printPublications(Library lib, Class cl){
+        long counter = lib.getPublications().values().stream()
+                .filter(cl::isInstance)
+                .sorted(new Library.AlphabeticComparator())
+                .peek(System.out::println)
+                .count();
 
-        int countMagazines = 0;
-        for(Publication p: publications) {
-            if(p instanceof Magazine) {
-                System.out.println(p);
-                countMagazines++;
-            }
-        }
-
-        if(countMagazines == 0) {
-            System.out.println("Brak magazynów w bibliotece");
+        if (counter == 0){
+            System.out.println("W biblitece nie ma publikacji typu " + cl.getSimpleName());
         }
     }
 
     public static void printUsers(Library lib){
-        List<LibraryUser>users = new ArrayList<>();
-        users.addAll(lib.getUsers().values());
-
-        Collections.sort(users, Comparator.comparing(User::getLastName));
-
-        for (LibraryUser u: users)
-            System.out.println(u);
+        lib.getUsers().values().stream()
+                .sorted(Comparator.comparing(User::getLastName))
+                .forEach(System.out::println);
     }
 }
