@@ -21,7 +21,7 @@ public class LibraryUtils {
                 .count();
 
         if (counter == 0){
-            System.out.println("W biblitece nie ma publikacji typu " + cl.getSimpleName());
+            System.out.println("W bibliotece nie ma publikacji typu " + cl.getSimpleName());
         }
     }
 

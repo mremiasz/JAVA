@@ -1,18 +1,23 @@
 package data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Publication implements Serializable, Comparable <Publication> {
     private static final long serialVersionUID = 1984321894963513156L;
-    private int year;
+    private LocalDate date;
     private String title;
     private String publisher;
 
-    int getYear() {
-        return year;
+    public LocalDate getDate() {
+        return date;
     }
-    private void setYear(int year) {
-        this.year = year;
+    protected void setDate(LocalDate date){
+        this.date = date;
+    }
+
+    public int getYear(){
+        return date.getYear();
     }
     String getTitle() {
         return title;
@@ -28,7 +33,7 @@ public class Publication implements Serializable, Comparable <Publication> {
     }
 
     Publication(int year, String title, String publisher) {
-        setYear(year);
+        setDate(LocalDate.of(year,1,1));
         setTitle(title);
         setPublisher(publisher);
     }
@@ -40,9 +45,9 @@ public class Publication implements Serializable, Comparable <Publication> {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
-        result = prime * result + year;
         return result;
     }
     @Override
@@ -54,6 +59,11 @@ public class Publication implements Serializable, Comparable <Publication> {
         if (getClass() != obj.getClass())
             return false;
         Publication other = (Publication) obj;
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else if (!date.equals(other.date))
+            return false;
         if (publisher == null) {
             if (other.publisher != null)
                 return false;
@@ -64,10 +74,6 @@ public class Publication implements Serializable, Comparable <Publication> {
                 return false;
         } else if (!title.equals(other.title))
             return false;
-        if (year != other.year)
-            return false;
         return true;
     }
-
-
 }

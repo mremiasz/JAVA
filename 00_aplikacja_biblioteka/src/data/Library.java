@@ -14,9 +14,9 @@ public class Library implements Serializable {
     private Map<String,Publication> publications;
     private Map<String,LibraryUser>users;
 
-    public int getPublicationNumber() {
-        return publications.size();
-    }
+//    public int getPublicationNumber() {
+//        return publications.size();
+//    }
 
     public Map<String, Publication> getPublications() {
         return publications;
@@ -47,11 +47,11 @@ public class Library implements Serializable {
         users.put(user.getPesel(),user);
     }
 
-    private void removePublication(Publication pub){
-        if (publications.containsValue(pub)){
-            publications.remove(pub.getTitle());
-        }
-    }
+//    private void removePublication(Publication pub){
+//        if (publications.containsValue(pub)){
+//            publications.remove(pub.getTitle());
+//        }
+//    }
     @Override
     public String toString() {
         StringBuilder printer = new StringBuilder();
