@@ -31,6 +31,13 @@ public class Controller {
         }
         return result.toString();
     }
+    @RequestMapping("/role/remove")
+    public void roleRemove(@RequestParam(name = "id") Integer id){
+        for (Role r : roleRepository.findById(id.longValue())){
+            roleRepository.delete(r);
+        }
+    }
+
 
     @RequestMapping("/person/add")
     public String addPerson(@RequestParam(name ="name")String name,@RequestParam(name ="roleName") String roleName){
