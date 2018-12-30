@@ -1,0 +1,5 @@
+pl\edu\uj\controllers\Controller.class
+pl\edu\uj\entities\Role.class
+pl\edu\uj\entities\Person.class
+pl\edu\uj\repositories\PersonRepository.class
+pl\edu\uj\repositories\RoleRepository.class
